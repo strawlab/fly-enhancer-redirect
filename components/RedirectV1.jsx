@@ -73,6 +73,21 @@ function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };
 
+function getBaseUrl(loc) {
+  var origQueryStr = loc.search.substring(1);
+  var base;
+  var origURL = loc.toString();
+  if (origQueryStr.length > 0) {
+    var searchStart = origURL.indexOf(origQueryStr);
+    base = (searchStart !== -1) ? origURL.substring(0,searchStart) : origURL;
+  } else {
+    // No query. May end with '/'.
+    base = origURL;
+    base = base + '?';
+  }
+  return base;
+}
+
 let RedirectV1 = React.createClass({
   render: function () {
     let destination = this.props.params.destination;
@@ -82,13 +97,14 @@ let RedirectV1 = React.createClass({
 
     let this_data = data[destination];
     let arg = query[this_data.query_name];
-    let example_link = this.props.path + "?" + this_data.query_name + "=" + this_data.example_query_value;
+    let base = getBaseUrl(window.location);
+    let example_link = base + this_data.query_name + "=" + this_data.example_query_value;
 
     if (typeof arg === "undefined") {
       return (
         <main>
-          Error, for {destination}, you need to specify a query parameter "{this_data.query_name}".
-          Example link <a href={example_link}> {example_link} </a>
+          Error: You must specify the query parameter "{this_data.query_name}".
+          For example, this link <a href={example_link}>{example_link}</a>.
         </main>
       );
     }
