@@ -25,6 +25,13 @@ To build the site, you need npm installed. Then:
 
 The resulting site will be in `_site`.
 
+Assuming your local server is running at http://localhost:8000, you can check
+that it works with these URLs:
+
+    http://localhost:8000/redirect/v1/bbweb/?vt=05534
+    http://localhost:8000/redirect/v1/vdrc/?vt=05534
+    http://localhost:8000/redirect/v1/flylight/?line=R27B03
+
 ## development
 
 To run a development server, run:
