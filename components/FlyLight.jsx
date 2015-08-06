@@ -1,7 +1,6 @@
-// components/FlyLight.jsx
-var React = require('react')
+import React from 'react'
 
-var FlyLight = React.createClass({
+let FlyLight = React.createClass({
   render: function () {
     return (
       <main>
@@ -11,4 +10,4 @@ var FlyLight = React.createClass({
   }
 })
 
-module.exports = FlyLight
+export default FlyLight

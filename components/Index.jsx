@@ -1,7 +1,6 @@
-// components/Index.jsx
-var React = require('react')
+import React from 'react'
 
-var Index = React.createClass({
+let Index = React.createClass({
   render: function () {
     return (
       <main>
@@ -11,4 +10,4 @@ var Index = React.createClass({
   }
 })
 
-module.exports = Index
+export default Index

@@ -1,14 +1,13 @@
-// components/Root.jsx
-var React = require('react')
-var Router = require('react-router')
-var RouteHandler = Router.RouteHandler
+import React from 'react'
+import Router from 'react-router'
 
-var Root = React.createClass({
+let RouteHandler = Router.RouteHandler
+
+let Root = React.createClass({
   render: function () {
-    var initialProps = {
+    let initialProps = {
       __html: safeStringify(this.props)
     }
-
 
     return (
       <html>
@@ -32,4 +31,4 @@ function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
 
-module.exports = Root
+export default Root

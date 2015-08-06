@@ -1,4 +1,3 @@
-// data.js
 module.exports = {
   title: 'Straw Lab Redirect',
   routes: [
