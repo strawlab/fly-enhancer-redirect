@@ -22,6 +22,9 @@ let Index = React.createClass({
             }
           })}
         </ul>
+
+        <p>The source code for this site is <a href="https://github.com/strawlab/redirect.strawlab.org/">here</a>.</p>
+
       </main>
     )
   }
