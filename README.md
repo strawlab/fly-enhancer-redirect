@@ -4,14 +4,15 @@ This is the sourcecode to [http://redirect.strawlab.org](http://redirect.strawla
 
 This site was built according to the recipe by [Brent Jackson](http://jxnblk.com/writing/posts/static-site-generation-with-react-and-webpack/)
 
-## This code has a serious bug
+## Potential future improvement
 
-Due to behavior with react-router that I don't understand, I was getting React
-errors much like
+In theory, most of the pages in this site could be pre-rendered on the
+server-side and then the javascript could alter/update them. However, when I
+tried to do that, I was getting strange errors much like
 [this](https://github.com/rackt/react-router/issues/1402#issuecomment-116723037).
-I have not solved the issue and consequently error messages show up on the
-console and in the browser. Nonetheless, the redirection works and so I'm
-putting this online in the present state and hope to fix the bug later.
+It seems that the various static React-based site generators do not expect
+dynamic data, e.g. from a query in the URL. Anyhow, if these errors could be
+fixed, the server-side pre-rendering could be turned on.
 
 ## prior to building or developing
 
