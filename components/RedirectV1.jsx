@@ -99,7 +99,7 @@ let RedirectV1 = React.createClass({
         <main>
           Error: You must specify the query parameter "{this_data.query_name}".
           For example, this link <a href={example_link}>{example_link}</a>.
-          <p>Return to <a href="/">the index page</a>.</p>
+          <p>Go to the <a href="/">site index</a>.</p>
         </main>
       );
     }
@@ -113,6 +113,7 @@ let RedirectV1 = React.createClass({
     return (
       <main>
         You will be redirected for destination {destination} with query {query}.
+        <p>Go to the <a href="/">site index</a>.</p>
       </main>
     );
   }
