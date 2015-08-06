@@ -11,7 +11,7 @@ let DefaultRoute = Router.DefaultRoute
 let Routes = (
   <Route handler={Root} path='/'>
     <DefaultRoute handler={Index} />
-    <Route path='/redirect/v1/:destintation/' handler={RedirectV1} />
+    <Route path='/redirect/v1/:destination/' handler={RedirectV1} />
   </Route>
 )
 
