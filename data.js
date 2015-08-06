@@ -1,7 +1,8 @@
 // data.js
 module.exports = {
-  title: 'My Static Site',
+  title: 'Straw Lab Redirect',
   routes: [
-    '/'
+    '/',
+    '/fly-light'
   ]
 }
