@@ -10,7 +10,7 @@ if (typeof document !== 'undefined') {
 }
 
 let Entry = function render (locals, callback) {
-  callback(null, '<html><head></head><body>This page requires javascript.<script src="/bundle.js"></script></body></html>');
+  callback(null, '<html><head><meta charset="utf-8"/></head><body>This page requires javascript.<script src="/bundle.js"></script></body></html>');
 }
 
 export default Entry
