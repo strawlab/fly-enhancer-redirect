@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack": "webpack --progress --colors",
+    "webpack": "webpack --progress --colors --optimize-minimize",
     "dev": "webpack-dev-server --progress --colors",
     "start": "npm run dev"
   },
