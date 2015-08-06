@@ -4,7 +4,10 @@
   "description": "bounce incoming browsers to resources elsewhere",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack --progress --colors",
+    "dev": "webpack-dev-server --progress --colors",
+    "start": "npm run dev"
   },
   "author": "Andrew Straw",
   "devDependencies": {
