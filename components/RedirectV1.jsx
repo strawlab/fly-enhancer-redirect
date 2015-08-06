@@ -68,6 +68,11 @@ let data = {
   }
 };
 
+// hmm, babel doesn't add string.endsWith(), so we use this.
+function endsWith(str, suffix) {
+  return str.indexOf(suffix, str.length - suffix.length) !== -1;
+};
+
 let RedirectV1 = React.createClass({
   render: function () {
     let destination = this.props.params.destination;
@@ -88,7 +93,7 @@ let RedirectV1 = React.createClass({
       );
     }
 
-    if (arg.length >1 & arg.endsWith("/")) {
+    if (arg.length >1 & endsWith(arg,"/")) {
       arg = arg.substring(0,arg.length-1);
     }
     console.log("arg = ",arg);
