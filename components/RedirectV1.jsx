@@ -50,9 +50,7 @@ let data = {
     query_name: "vt",
     example_query_value: "05534",
     do_redirect: function(vt_number) {
-      console.log("redirecting to bbweb for vt",vt_number);
       let brainbase_url = "http://brainbase.imp.ac.at/bbweb/#6?st=byline&q="+vt_number;
-      console.log("brainbase_url",brainbase_url)
       window.location = brainbase_url;
     }
   },
@@ -60,9 +58,7 @@ let data = {
     query_name: "vt",
     example_query_value: "05534",
     do_redirect: function(vt_number) {
-      console.log("redirecting to VDRC for vt",vt_number);
       let vdrc_url = 'http://stockcenter.vdrc.at/control/keywordsearch?SEARCH_CATALOG_ID=VDRC_Catalog&SEARCH_CATEGORY_ID=VDRC_All&SEARCH_STRING=vt'+vt_number+'&VIEW_SIZE=100';
-      console.log("vdrc_url",vdrc_url );
       window.location = vdrc_url;
     }
   }
@@ -92,8 +88,6 @@ let RedirectV1 = React.createClass({
   render: function () {
     let destination = this.props.params.destination;
     let query = this.props.query;
-    console.log("this.props",this.props);
-    console.log("query",query);
 
     let this_data = data[destination];
     let arg = query[this_data.query_name];
@@ -112,7 +106,6 @@ let RedirectV1 = React.createClass({
     if (arg.length >1 & endsWith(arg,"/")) {
       arg = arg.substring(0,arg.length-1);
     }
-    console.log("arg = ",arg);
 
     this_data.do_redirect(arg);
 
