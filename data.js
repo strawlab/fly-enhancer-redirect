@@ -3,8 +3,8 @@ module.exports = {
   routes: [
     // these routes will be built
     '/',
-    '/redirect/v1/flylight/',
-    '/redirect/v1/vdrc/',
-    '/redirect/v1/bbweb/'
+    '/v1/flylight',
+    '/v1/vdrc',
+    '/v1/bbweb'
   ]
 }
