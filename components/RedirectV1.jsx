@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'react-router'
 
 let data = {
   flylight: {
@@ -69,32 +70,21 @@ function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };
 
-function getBaseUrl(loc) {
-  var origQueryStr = loc.search.substring(1);
-  var base;
-  var origURL = loc.toString();
-  if (origQueryStr.length > 0) {
-    var searchStart = origURL.indexOf(origQueryStr);
-    base = (searchStart !== -1) ? origURL.substring(0,searchStart) : origURL;
-  } else {
-    // No query. May end with '/'.
-    base = origURL;
-    base = base + '?';
-  }
-  return base;
-}
-
 let RedirectV1 = React.createClass({
+  mixins: [Router.Navigation, Router.State],
   render: function () {
     let destination = this.props.params.destination;
     let query = this.props.query;
 
     let this_data = data[destination];
     let arg = query[this_data.query_name];
-    let base = getBaseUrl(window.location);
-    let example_link = base + this_data.query_name + "=" + this_data.example_query_value;
 
     if (typeof arg === "undefined") {
+      let pathname = this.getPathname();
+      let query = {}; query[this_data.query_name]= this_data.example_query_value;
+      let params = null;
+      let example_link = this.makeHref( pathname, params, query );
+
       return (
         <main>
           Error: You must specify the query parameter "{this_data.query_name}".
@@ -104,6 +94,7 @@ let RedirectV1 = React.createClass({
       );
     }
 
+    // Remove trailing slash from arg if present.
     if (arg.length >1 & endsWith(arg,"/")) {
       arg = arg.substring(0,arg.length-1);
     }
