@@ -1,6 +1,17 @@
 import React from 'react'
 import Router from 'react-router'
 
+function pad(num, size) {
+    let s = num+"";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
+
+function get_vt_string(vt_number) {
+  let vtInt = parseInt(vt_number);
+  return pad(vtInt,6);
+}
+
 let data = {
   flylight: {
     query_name: "line",
@@ -49,16 +60,18 @@ let data = {
   },
   bbweb: {
     query_name: "vt",
-    example_query_value: "05534",
-    do_redirect: function(vt_number) {
+    example_query_value: "5534",
+    do_redirect: function(vt_number_orig) {
+      let vt_number = get_vt_string(vt_number_orig);
       let brainbase_url = "http://brainbase.imp.ac.at/bbweb/#6?st=byline&q="+vt_number;
       window.location = brainbase_url;
     }
   },
   vdrc: {
     query_name: "vt",
-    example_query_value: "05534",
-    do_redirect: function(vt_number) {
+    example_query_value: "5534",
+    do_redirect: function(vt_number_orig) {
+      let vt_number = get_vt_string(vt_number_orig);
       let vdrc_url = 'http://stockcenter.vdrc.at/control/keywordsearch?SEARCH_CATALOG_ID=VDRC_Catalog&SEARCH_CATEGORY_ID=VDRC_All&SEARCH_STRING=vt'+vt_number+'&VIEW_SIZE=100';
       window.location = vdrc_url;
     }
