@@ -14,7 +14,7 @@ let Index = React.createClass({
         This is a URL redirection service from the <a href="https://strawlab.org/">Straw
         Lab</a>. It allows a simple URL to link to an online resoures elsewhere.
 
-        <p>The source code for this site is <a href="https://github.com/strawlab/redirect.strawlab.org/">here</a>.</p>
+        <p>The source code for this site is <a href="https://github.com/strawlab/fly-enhancer-redirect">here</a>.</p>
 
       </main>
       );

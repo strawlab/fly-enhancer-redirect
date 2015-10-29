@@ -1,8 +1,11 @@
-# redirect.strawlab.org
+# fly-enhancer-redirect
 
-This is the sourcecode to [http://redirect.strawlab.org](http://redirect.strawlab.org).
+This is the sourcecode to a fly-enhancer-redirect. You can see it in action at
+https://strawlab.org/fly-enhancer-redirect .
 
-This site was built according to the recipe by [Brent Jackson](http://jxnblk.com/writing/posts/static-site-generation-with-react-and-webpack/)
+Originally,this site was built according to the recipe by [Brent
+Jackson](http://jxnblk.com/writing/posts/static-site-generation-with-react-and-webpack/).
+Since then, it has evolved.
 
 ## Potential future improvement
 
