@@ -22,6 +22,7 @@ class Root extends React.Component {
     <html>
       <head>
         <meta charSet="utf-8" />
+        <title>{data.title}</title>
       </head>
       <body>
         {this.props.children}

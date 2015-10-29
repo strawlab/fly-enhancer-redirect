@@ -1,5 +1,5 @@
 module.exports = {
-  title: 'Straw Lab Redirect',
+  title: 'Fly Enhancer Redirect',
   routes: [
     // these routes will be built
     '/',
