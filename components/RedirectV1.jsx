@@ -99,6 +99,7 @@ let RedirectV1 = React.createClass({
 
       return (
         <main>
+          <noscript><h3>ERROR: javascript required</h3></noscript>
           Error: You must specify the query parameter "{this_data.query_name}".
           For example, this link <a href={example_link}>{example_link}</a>.
           <p>Go to the <a href="/">site index</a>.</p>
@@ -114,6 +115,7 @@ let RedirectV1 = React.createClass({
     this_data.do_redirect(arg);
     return (
       <main>
+        <noscript><h3>ERROR: javascript required</h3></noscript>
         You will be redirected for destination {destination} with query {query}.
         <p>Go to the <a href="/">site index</a>.</p>
       </main>
