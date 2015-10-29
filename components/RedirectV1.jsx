@@ -84,19 +84,18 @@ function endsWith(str, suffix) {
 };
 
 let RedirectV1 = React.createClass({
-  mixins: [Router.Navigation, Router.State],
+  mixins: [Router.History],
   render: function () {
     let destination = this.props.params.destination;
-    let query = this.props.query;
-
+    let query = this.props.location.query || {};
     let this_data = data[destination];
+
     let arg = query[this_data.query_name];
 
     if (typeof arg === "undefined") {
-      let pathname = this.getPathname();
+      let pathname = this.props.location.pathname;
       let query = {}; query[this_data.query_name]= this_data.example_query_value;
-      let params = null;
-      let example_link = this.makeHref( pathname, params, query );
+      let example_link = this.props.history.createHref( pathname, query );
 
       return (
         <main>
@@ -113,7 +112,6 @@ let RedirectV1 = React.createClass({
     }
 
     this_data.do_redirect(arg);
-
     return (
       <main>
         You will be redirected for destination {destination} with query {query}.

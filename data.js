@@ -6,5 +6,6 @@ module.exports = {
     '/v1/flylight',
     '/v1/vdrc',
     '/v1/bbweb'
-  ]
+  ],
+  subdir: '/redirect',
 }
