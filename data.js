@@ -7,5 +7,5 @@ module.exports = {
     '/v1/vdrc',
     '/v1/bbweb'
   ],
-  subdir: '/redirect',
+  subdir: '/fly-enhancer-redirect',
 }
