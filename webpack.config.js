@@ -7,7 +7,7 @@ var myRoutes = data.routes.map(commonUtil.fixRoute);
 module.exports = {
 
   entry: {
-  'main': './entry.js'
+    main: './entry.js'
   },
 
   output: {
