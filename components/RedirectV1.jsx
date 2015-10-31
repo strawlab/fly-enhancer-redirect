@@ -44,7 +44,7 @@ let data = {
         formData.push([".cgifields", "lterm"]);
         form = document.createElement('form');
         form.setAttribute('method', 'POST');
-        form.setAttribute('action', 'http://flweb.janelia.org/cgi-bin/flew.cgi');
+        form.setAttribute('action', 'https://flweb.janelia.org/cgi-bin/flew.cgi');
         for (j = 0, len1 = formData.length; j < len1; j++) {
           el = formData[j];
           key = el[0];
