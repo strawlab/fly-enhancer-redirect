@@ -161,7 +161,7 @@ let RedirectV1 = React.createClass({
     return (
       <main>
         <noscript><h3>ERROR: javascript required</h3></noscript>
-        You will be redirected for destination {destination} with query {query}.
+        You will be redirected for destination {destination} with query {JSON.stringify(query)}.
         <p>Go to the <a href="/">site index</a>.</p>
       </main>
     );
