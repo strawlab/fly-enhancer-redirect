@@ -12,7 +12,7 @@ let Index = React.createClass({
       <main>
         <h1>fly enhancer redirect</h1>
         This is a URL redirection service from the <a href="https://strawlab.org/">Straw
-        Lab</a>. It allows a simple URL to link to an online resoures elsewhere.
+        Lab</a>. It allows URLs to link to online resoures elsewhere.
 
         <p>The source code for this site is <a href="https://github.com/strawlab/fly-enhancer-redirect">here</a>.</p>
 
