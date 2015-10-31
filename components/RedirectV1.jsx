@@ -1,6 +1,5 @@
 import React from 'react'
-import Router from 'react-router'
-import { Link } from 'react-router'
+import { Link, History } from 'react-router'
 
 function pad(num, size) {
     let s = num+"";
@@ -88,7 +87,7 @@ function endsWith(str, suffix) {
 };
 
 let RedirectV1 = React.createClass({
-  mixins: [Router.History],
+  mixins: [History],
   getInitialState: function() {
     return {
       nameFilter:"",
@@ -98,15 +97,12 @@ let RedirectV1 = React.createClass({
     this.setState({nameFilter: evt.target.value});
   },
   onKeyDown: function(evt) {
-    /*
-    // Disabled for now: pressing Enter follows link. Reason: weird React error.
     if (evt.keyCode == 13) {
       let pathname = this.props.location.pathname;
 
       let query = this.getCurrentQuery();
-      this.props.history.pushState(null, pathname, query); // <-- HERE I get an error.
+      this.history.pushState(null, pathname, query);
     }
-    */
   },
   setDefaultQuery: function(p) {
     let destination = p.params.destination;
