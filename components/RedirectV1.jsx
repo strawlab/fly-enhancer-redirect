@@ -14,6 +14,7 @@ function get_vt_string(vt_number) {
 
 let data = {
   flylight: {
+    title: "Janelia FlyLight",
     query_name: "line",
     pretty_name: "driver line identifier",
     example_query_value: "R27B03",
@@ -60,6 +61,7 @@ let data = {
     }
   },
   bbweb: {
+    title: "Vienna Tiles (Brain Base Web)",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
     example_query_value: "5534",
@@ -70,6 +72,7 @@ let data = {
     }
   },
   vdrc: {
+    title: "Vienna Tiles (VDRC)",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
     example_query_value: "5534",
@@ -154,6 +157,7 @@ let RedirectV1 = React.createClass({
     if ( !cs.shouldRedirect ) {
       return (
         <main>
+          <h2>Redirection service for {cs.this_data.title}</h2>
           <noscript><h3>ERROR: javascript required</h3></noscript>
           <p>
             To generate a link, please enter a {cs.this_data.pretty_name}:
@@ -168,6 +172,7 @@ let RedirectV1 = React.createClass({
 
     return (
       <main>
+        <h2>Redirection service for {cs.this_data.title}</h2>
         <noscript><h3>ERROR: javascript required</h3></noscript>
         You will be redirected for destination {cs.destination} with query {JSON.stringify(cs.currentQuery)}.
         <p>Go to the <a href="/">site index</a>.</p>
