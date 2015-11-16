@@ -1,5 +1,8 @@
 import React from 'react'
 import { Link, History } from 'react-router'
+import { connect } from 'react-redux'
+import {setJaneliaLine} from '../redux/modules/currentJaneliaLine'
+import {setViennaLine} from '../redux/modules/currentViennaLine'
 
 function pad(num, size) {
     let s = num+"";
@@ -17,7 +20,6 @@ let data = {
     title: "Janelia FlyLight",
     query_name: "line",
     pretty_name: "driver line identifier",
-    example_query_value: "R27B03",
     do_redirect: function(line) {
         var blank, blank_key, el, form, formData, hiddenField, i, j, key, len, len1, value;
 
@@ -64,7 +66,6 @@ let data = {
     title: "Vienna Tiles (Brain Base Web)",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
-    example_query_value: "5534",
     do_redirect: function(vt_number_orig) {
       let vt_number = get_vt_string(vt_number_orig);
       let brainbase_url = "http://brainbase.imp.ac.at/bbweb/#6?st=byline&q="+vt_number;
@@ -75,7 +76,6 @@ let data = {
     title: "Vienna Tiles (VDRC)",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
-    example_query_value: "5534",
     do_redirect: function(vt_number_orig) {
       let vt_number = get_vt_string(vt_number_orig);
       let vdrc_url = 'http://stockcenter.vdrc.at/control/keywordsearch?SEARCH_CATALOG_ID=VDRC_Catalog&SEARCH_CATEGORY_ID=VDRC_All&SEARCH_STRING=vt'+vt_number+'&VIEW_SIZE=100';
@@ -89,71 +89,83 @@ function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
 };
 
+const getComputedCache = function(props) {
+  const destination = props.params.destination;
+  const pathname = props.location.pathname;
+
+  const currentQuery = props.location.query || {};
+  const this_data = data[destination];
+
+  const currentQueryArg = currentQuery[this_data.query_name];
+  const shouldRedirect = typeof currentQueryArg !== "undefined";
+
+  var nameFieldText;
+  switch (props.params.destination) {
+  case "flylight":
+    nameFieldText = props.currentJaneliaLine;
+    break;
+  case "bbweb":
+  case "vdrc":
+    nameFieldText = props.currentViennaLine;
+    break;
+  default:
+    console.error("unknown destination",props.destination);
+    break;
+  }
+
+  let nextQuery = {};
+  nextQuery[this_data.query_name]=nameFieldText;
+
+  let argNoSlash = currentQueryArg;
+
+  if (typeof argNoSlash !== "undefined") {
+    // Remove trailing slash from argNoSlash if present.
+    if (argNoSlash.length >1 & endsWith(argNoSlash,"/")) {
+      argNoSlash = argNoSlash.substring(0,argNoSlash.length-1);
+    }
+  }
+
+  return { destination, this_data, currentQueryArg, argNoSlash,
+    shouldRedirect, nextQuery, currentQuery, nameFieldText, pathname };
+}
+
+
+
 let RedirectV1 = React.createClass({
   mixins: [History],
-  getInitialState: function() {
-    return {
-      nameFilter:"",
-    };
-  },
   onNameFilterChange: function(evt) {
-    this.setState({nameFilter: evt.target.value});
+    const destination = this.props.params.destination;
+    switch (destination) {
+    case "flylight":
+      this.props.dispatch(setJaneliaLine(evt.target.value));
+      break;
+    case "bbweb":
+    case "vdrc":
+      this.props.dispatch(setViennaLine(evt.target.value));
+      break;
+    default:
+      console.error("unknown destination",destination);
+      break;
+    }
   },
   onKeyDown: function(evt) {
     if (evt.keyCode == 13) {
       let pathname = this.props.location.pathname;
 
-      let {nextQuery} = this.getComputedState(this.props,this.state);
+      let {nextQuery} = getComputedCache(this.props);
       this.history.pushState(null, pathname, nextQuery);
     }
   },
-  setDefaultQuery: function(p) {
-    let destination = p.params.destination;
-    let this_data = data[destination];
-    this.setState({nameFilter: this_data.example_query_value});
-  },
-  componentWillReceiveProps: function(nextProps) {
-    this.setDefaultQuery(nextProps);
-  },
-  componentWillMount: function() {
-    this.setDefaultQuery(this.props);
-  },
-  maybeRedirect(props,state) {
-    let cs = this.getComputedState(props,state);
+  componentDidUpdate(pp,ps) { this.redirectIfNeeded(this.props); },
+  componentDidMount() { this.redirectIfNeeded(this.props); },
+  redirectIfNeeded(props) {
+    let cs = getComputedCache(props);
     if (cs.shouldRedirect) {
       cs.this_data.do_redirect(cs.argNoSlash);
     }
   },
-  componentDidUpdate(pp,ps) { this.maybeRedirect(this.props,this.state); },
-  componentDidMount() { this.maybeRedirect(this.props,this.state); },
-  getComputedState(props,state) {
-    const destination = props.params.destination;
-    const pathname = props.location.pathname;
-
-    const currentQuery = props.location.query || {};
-    const this_data = data[destination];
-
-    const currentQueryArg = currentQuery[this_data.query_name];
-    const shouldRedirect = typeof currentQueryArg !== "undefined";
-    const nameFieldText = state.nameFilter;
-
-    let nextQuery = {};
-    nextQuery[this_data.query_name]=nameFieldText;
-
-    let argNoSlash = currentQueryArg;
-
-    if (typeof argNoSlash !== "undefined") {
-      // Remove trailing slash from argNoSlash if present.
-      if (argNoSlash.length >1 & endsWith(argNoSlash,"/")) {
-        argNoSlash = argNoSlash.substring(0,argNoSlash.length-1);
-      }
-    }
-
-    return { destination, this_data, currentQueryArg, argNoSlash,
-      shouldRedirect, nextQuery, currentQuery, nameFieldText, pathname };
-  },
   render: function () {
-    let cs = this.getComputedState(this.props,this.state);
+    let cs = getComputedCache(this.props);
     if ( !cs.shouldRedirect ) {
       return (
         <main>
@@ -181,4 +193,18 @@ let RedirectV1 = React.createClass({
   }
 })
 
-export default RedirectV1
+
+function mapStateToProps(state) {
+  const {
+    currentJaneliaLine,
+    currentViennaLine,
+  } = state;
+
+  return {
+    currentJaneliaLine,
+    currentViennaLine,
+  };
+}
+
+// Wrap the component to inject dispatch and state into it
+export default connect(mapStateToProps)(RedirectV1)
