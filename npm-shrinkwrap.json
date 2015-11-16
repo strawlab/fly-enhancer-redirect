@@ -908,6 +908,11 @@
       "from": "babel-plugin-undefined-to-void@>=1.1.6 <2.0.0",
       "resolved": "https://registry.npmjs.org/babel-plugin-undefined-to-void/-/babel-plugin-undefined-to-void-1.1.6.tgz"
     },
+    "babel-runtime": {
+      "version": "6.1.18",
+      "from": "babel-runtime@*",
+      "resolved": "https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.1.18.tgz"
+    },
     "babylon": {
       "version": "5.8.29",
       "from": "babylon@>=5.8.21 <6.0.0",
@@ -2179,6 +2184,11 @@
       "from": "history@*",
       "resolved": "https://registry.npmjs.org/history/-/history-1.13.0.tgz"
     },
+    "hoist-non-react-statics": {
+      "version": "1.0.3",
+      "from": "hoist-non-react-statics@>=1.0.3 <2.0.0",
+      "resolved": "https://registry.npmjs.org/hoist-non-react-statics/-/hoist-non-react-statics-1.0.3.tgz"
+    },
     "home-or-tmp": {
       "version": "1.0.0",
       "from": "home-or-tmp@>=1.0.0 <2.0.0",
@@ -2721,6 +2731,11 @@
       "from": "react-dom@*",
       "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.1.tgz"
     },
+    "react-redux": {
+      "version": "4.0.0",
+      "from": "react-redux@*",
+      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.0.0.tgz"
+    },
     "react-router": {
       "version": "1.0.0-rc3",
       "from": "react-router@1.0.0-rc3",
@@ -2774,6 +2789,11 @@
           "resolved": "https://registry.npmjs.org/source-map/-/source-map-0.4.4.tgz"
         }
       }
+    },
+    "redux": {
+      "version": "3.0.4",
+      "from": "redux@*",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-3.0.4.tgz"
     },
     "regenerate": {
       "version": "1.2.1",
