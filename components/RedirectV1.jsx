@@ -100,8 +100,8 @@ let RedirectV1 = React.createClass({
     if (evt.keyCode == 13) {
       let pathname = this.props.location.pathname;
 
-      let query = this.getCurrentQuery();
-      this.history.pushState(null, pathname, query);
+      let {nextQuery} = this.getComputedState(this.props,this.state);
+      this.history.pushState(null, pathname, nextQuery);
     }
   },
   setDefaultQuery: function(p) {
@@ -112,52 +112,64 @@ let RedirectV1 = React.createClass({
   componentWillReceiveProps: function(nextProps) {
     this.setDefaultQuery(nextProps);
   },
-  componentDidMount: function() {
+  componentWillMount: function() {
     this.setDefaultQuery(this.props);
   },
-  getCurrentQuery: function() {
-    let destination = this.props.params.destination;
-    let this_data = data[destination];
+  maybeRedirect(props,state) {
+    let cs = this.getComputedState(props,state);
+    if (cs.shouldRedirect) {
+      cs.this_data.do_redirect(cs.argNoSlash);
+    }
+  },
+  componentDidUpdate(pp,ps) { this.maybeRedirect(this.props,this.state); },
+  componentDidMount() { this.maybeRedirect(this.props,this.state); },
+  getComputedState(props,state) {
+    const destination = props.params.destination;
+    const pathname = props.location.pathname;
 
-    let query = {};
-    query[this_data.query_name]=this.state.nameFilter;
-    return query;
+    const currentQuery = props.location.query || {};
+    const this_data = data[destination];
+
+    const currentQueryArg = currentQuery[this_data.query_name];
+    const shouldRedirect = typeof currentQueryArg !== "undefined";
+    const nameFieldText = state.nameFilter;
+
+    let nextQuery = {};
+    nextQuery[this_data.query_name]=nameFieldText;
+
+    let argNoSlash = currentQueryArg;
+
+    if (typeof argNoSlash !== "undefined") {
+      // Remove trailing slash from argNoSlash if present.
+      if (argNoSlash.length >1 & endsWith(argNoSlash,"/")) {
+        argNoSlash = argNoSlash.substring(0,argNoSlash.length-1);
+      }
+    }
+
+    return { destination, this_data, currentQueryArg, argNoSlash,
+      shouldRedirect, nextQuery, currentQuery, nameFieldText, pathname };
   },
   render: function () {
-    let destination = this.props.params.destination;
-    let query = this.props.location.query || {};
-    let this_data = data[destination];
-
-    let arg = query[this_data.query_name];
-
-    if (typeof arg === "undefined") {
-      let pathname = this.props.location.pathname;
-      let query = this.getCurrentQuery();
-
+    let cs = this.getComputedState(this.props,this.state);
+    if ( !cs.shouldRedirect ) {
       return (
         <main>
           <noscript><h3>ERROR: javascript required</h3></noscript>
           <p>
-            To generate a link, please enter a {this_data.pretty_name}:
-            <input type="text" value={this.state.nameFilter} onChange={this.onNameFilterChange} onKeyDown={this.onKeyDown} />
+            To generate a link, please enter a {cs.this_data.pretty_name}:
+            <input type="text" value={cs.nameFieldText} onChange={this.onNameFilterChange} onKeyDown={this.onKeyDown} />
           </p>
           <p>
-            <Link to={pathname} query={query}>link to {this_data.query_name} {this.state.nameFilter}</Link>
+            <Link to={cs.pathname} query={cs.nextQuery}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
           </p>
         </main>
       );
     }
 
-    // Remove trailing slash from arg if present.
-    if (arg.length >1 & endsWith(arg,"/")) {
-      arg = arg.substring(0,arg.length-1);
-    }
-
-    this_data.do_redirect(arg);
     return (
       <main>
         <noscript><h3>ERROR: javascript required</h3></noscript>
-        You will be redirected for destination {destination} with query {JSON.stringify(query)}.
+        You will be redirected for destination {cs.destination} with query {JSON.stringify(cs.currentQuery)}.
         <p>Go to the <a href="/">site index</a>.</p>
       </main>
     );
