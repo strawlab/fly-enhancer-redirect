@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prod": "NODE_ENV=production webpack -p --progress --colors",
+    "prod": "NODE_ENV=production BUILD_DEV=0 webpack -p --progress --colors",
     "dev-static": "webpack --progress --colors",
     "dev": "webpack-dev-server --progress --colors",
     "start": "npm run dev"
