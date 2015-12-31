@@ -1,19 +1,26 @@
-import React from 'react';
+import React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToString } from 'react-dom/server'
-import { createHistory, createMemoryHistory } from 'history';
-import { Router, RoutingContext, match } from 'react-router';
+import { createHistory, createMemoryHistory } from 'history'
+import { Router, RoutingContext, match } from 'react-router'
 import { Provider } from 'react-redux'
+import { syncReduxAndRouter } from 'redux-simple-router'
 
-import createStore from './redux/create';
+import configureStore from './redux/create'
 
-import routes from './routes';
-import data from './data';
-import {fixRoute} from './common/util';
+import routes from './routes'
+import data from './data'
+import {fixRoute} from './common/util'
 
 function safeStringify(obj) {
   return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
 }
+
+// The <Root> React component is the template for the page. As such, it lives
+// outside the redux provider and the router components and contains only
+// minimal bits required to render the page from javascript. In the future, we
+// could evaluate putting <Root> under the redux provider in the hierarchy and
+// thus let the page title (for example) be connected to a redux store variable.
 
 class Root extends React.Component {
   render() {
@@ -44,9 +51,10 @@ class Root extends React.Component {
 // Client render (optional):
 if (typeof document !== 'undefined') {
   var initialProps = JSON.parse(document.getElementById('initial-props').innerHTML)
-
   const history = createHistory();
-  const store = createStore(history, initialProps);
+  const store = configureStore(initialProps);
+  syncReduxAndRouter(history, store)
+  console.log("in client",history,initialProps);
   ReactDOM.render(
     <Root initialProps={initialProps}>
       <Provider store={store}>
@@ -68,15 +76,14 @@ export default (locals, callback) => {
     } else if (redirectLocation) {
       throw new Error("redirection not implemented");
     } else if (renderProps) {
-      const store = createStore(history);
+      const store = configureStore()
       const initialProps = store.getState();
-
       const html = renderToString(
-          <Root initialProps={initialProps}>
-            <Provider store={store}>
-              <RoutingContext {...renderProps} />
-            </Provider>
-          </Root>
+        <Root initialProps={initialProps}>
+          <Provider store={store}>
+            <RoutingContext {...renderProps} />
+          </Provider>
+        </Root>
       );
       callback(null, '<!DOCTYPE html>' + html);
     } else {

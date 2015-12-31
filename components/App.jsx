@@ -12,7 +12,7 @@ class App extends React.Component {
           <li><Link to={fixRoute("/v1/vdrc")} activeClassName="active">Vienna Tiles (VDRC)</Link></li>
           <li><Link to={fixRoute("/v1/bbweb")} activeClassName="active">Vienna Tiles (Brain Base Web)</Link></li>
         </ul>
-        {this.props.children.main}
+        {this.props.main}
       </div>
     )
   }
