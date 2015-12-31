@@ -2,6 +2,7 @@
   "name": "fly-enhancer-redirect",
   "repository": "https://github.com/strawlab/fly-enhancer-redirect",
   "version": "1.1.0",
+  "license": "BSD-3-Clause",
   "description": "bounce incoming browsers to resources elsewhere",
   "main": "index.js",
   "scripts": {
