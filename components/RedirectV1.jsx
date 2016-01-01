@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, History } from 'react-router'
+import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import {setJaneliaLine} from '../redux/modules/currentJaneliaLine'
 import {setViennaLine} from '../redux/modules/currentViennaLine'
@@ -132,7 +132,9 @@ const getComputedCache = function(props) {
 
 
 let RedirectV1 = React.createClass({
-  mixins: [History],
+  contextTypes: {
+    router: React.PropTypes.object.isRequired
+  },
   onNameFilterChange: function(evt) {
     const destination = this.props.params.destination;
     switch (destination) {
@@ -150,10 +152,11 @@ let RedirectV1 = React.createClass({
   },
   onKeyDown: function(evt) {
     if (evt.keyCode == 13) {
-      let pathname = this.props.location.pathname;
+      const pathname = this.props.location.pathname;
 
-      let {nextQuery} = getComputedCache(this.props);
-      this.history.pushState(null, pathname, nextQuery);
+      const { nextQuery } = getComputedCache(this.props);
+      const query = nextQuery
+      this.context.router.push({pathname, query})
     }
   },
   componentDidUpdate(pp,ps) { this.redirectIfNeeded(this.props); },
