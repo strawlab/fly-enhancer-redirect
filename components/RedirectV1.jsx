@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import {setJaneliaLine} from '../redux/modules/currentJaneliaLine'
 import {setViennaLine} from '../redux/modules/currentViennaLine'
+import {fixRoute} from '../common/util';
 
 function pad(num, size) {
     let s = num+"";
@@ -190,7 +191,7 @@ let RedirectV1 = React.createClass({
         <h2>Redirection service for {cs.this_data.title}</h2>
         <noscript><h3>ERROR: javascript required</h3></noscript>
         You will be redirected for destination {cs.destination} with query {JSON.stringify(cs.currentQuery)}.
-        <p>Go to the <a href="/">site index</a>.</p>
+        <p>Go to the <Link to={{pathname: fixRoute("/")}}>site index</Link>.</p>
       </main>
     );
   }
