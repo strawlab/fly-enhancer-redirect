@@ -1,11 +1,5 @@
 import React from 'react'
 
-var ListItemWrapper = React.createClass({
-  render: function() {
-    return <li><a href={this.props.path}>{this.props.path}</a></li>;
-  }
-});
-
 let Index = React.createClass({
   render: function () {
     return (
