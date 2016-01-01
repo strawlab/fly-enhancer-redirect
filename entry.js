@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { renderToString } from 'react-dom/server'
-import { createHistory, createMemoryHistory } from 'history'
-import { Router, RoutingContext, match } from 'react-router'
+import { Router, RouterContext, match, browserHistory } from 'react-router'
+import createMemoryHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
-import { syncReduxAndRouter } from 'redux-simple-router'
 
 import configureStore from './redux/create'
 
@@ -51,14 +50,12 @@ class Root extends React.Component {
 // Client render (optional):
 if (typeof document !== 'undefined') {
   var initialProps = JSON.parse(document.getElementById('initial-props').innerHTML)
-  const history = createHistory();
   const store = configureStore(initialProps);
-  syncReduxAndRouter(history, store)
   console.log("in client",history,initialProps);
   ReactDOM.render(
     <Root initialProps={initialProps}>
       <Provider store={store}>
-        <Router history={history} routes={routes} />
+        <Router history={browserHistory} routes={routes} />
       </Provider>
     </Root>
     , document);
@@ -81,7 +78,7 @@ export default (locals, callback) => {
       const html = renderToString(
         <Root initialProps={initialProps}>
           <Provider store={store}>
-            <RoutingContext {...renderProps} />
+            <RouterContext {...renderProps} />
           </Provider>
         </Root>
       );
