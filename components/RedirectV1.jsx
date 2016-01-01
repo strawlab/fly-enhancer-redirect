@@ -19,6 +19,7 @@ function get_vt_string(vt_number) {
 let data = {
   flylight: {
     title: "Janelia FlyLight",
+    placeholder: "R27B03",
     query_name: "line",
     pretty_name: "driver line identifier",
     do_redirect: function(line) {
@@ -65,6 +66,7 @@ let data = {
   },
   bbweb: {
     title: "Vienna Tiles (Brain Base Web)",
+    placeholder: "5534",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
     do_redirect: function(vt_number_orig) {
@@ -75,6 +77,7 @@ let data = {
   },
   vdrc: {
     title: "Vienna Tiles (VDRC)",
+    placeholder: "5534",
     query_name: "vt",
     pretty_name: "Vienna Tile number",
     do_redirect: function(vt_number_orig) {
@@ -177,7 +180,13 @@ let RedirectV1 = React.createClass({
           <noscript><h3>ERROR: javascript required</h3></noscript>
           <p>
             To generate a link, please enter a {cs.this_data.pretty_name}:
-            <input type="text" value={cs.nameFieldText} onChange={this.onNameFilterChange} onKeyDown={this.onKeyDown} />
+            <input
+              type="text"
+              value={cs.nameFieldText}
+              onChange={this.onNameFilterChange}
+              onKeyDown={this.onKeyDown}
+              placeholder={cs.this_data.placeholder}
+            />
           </p>
           <p>
             <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
