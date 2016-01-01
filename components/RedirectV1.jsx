@@ -179,7 +179,7 @@ let RedirectV1 = React.createClass({
             <input type="text" value={cs.nameFieldText} onChange={this.onNameFilterChange} onKeyDown={this.onKeyDown} />
           </p>
           <p>
-            <Link to={cs.pathname} query={cs.nextQuery}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
+            <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
           </p>
         </main>
       );

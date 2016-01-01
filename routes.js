@@ -27,7 +27,7 @@ const devRoutes = [
       componentDidMount() { this.doRedirect(); },
       render() {
         const baseLink = React.createElement(Link,
-          {to: fixRoute('/'), key: "subdir"},"subdir");
+          {to: {pathname: fixRoute('/')}, key: "subdir"},"subdir");
         const baseDiv = React.createElement('div',
           null, ["You will be redirected to ",baseLink,"."]);
         return baseDiv;
