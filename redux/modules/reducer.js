@@ -1,8 +1,10 @@
-import { combineReducers } from 'redux';
-import currentJaneliaLine from './currentJaneliaLine';
-import currentViennaLine from './currentViennaLine';
+import { combineReducers } from 'redux'
+import currentJaneliaLine from './currentJaneliaLine'
+import currentViennaLine from './currentViennaLine'
 
-export default combineReducers({
+const rootReducer = combineReducers({
   currentJaneliaLine,
   currentViennaLine,
-});
+})
+
+export default rootReducer

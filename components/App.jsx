@@ -7,12 +7,12 @@ class App extends React.Component {
     return (
       <div>
         <ul>
-          <li><Link to={fixRoute("/")} activeClassName="active">Redirect Home</Link></li>
-          <li><Link to={fixRoute("/v1/flylight")} activeClassName="active">Janelia FlyLight</Link></li>
-          <li><Link to={fixRoute("/v1/vdrc")} activeClassName="active">Vienna Tiles (VDRC)</Link></li>
-          <li><Link to={fixRoute("/v1/bbweb")} activeClassName="active">Vienna Tiles (Brain Base Web)</Link></li>
+          <li><Link to={{pathname: fixRoute("/")}} activeClassName="active">Redirect Home</Link></li>
+          <li><Link to={{pathname: fixRoute("/v1/flylight")}} activeClassName="active">Janelia FlyLight</Link></li>
+          <li><Link to={{pathname: fixRoute("/v1/vdrc")}} activeClassName="active">Vienna Tiles (VDRC)</Link></li>
+          <li><Link to={{pathname: fixRoute("/v1/bbweb")}} activeClassName="active">Vienna Tiles (Brain Base Web)</Link></li>
         </ul>
-        {this.props.children.main}
+        {this.props.main}
       </div>
     )
   }

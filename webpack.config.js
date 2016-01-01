@@ -20,6 +20,8 @@ module.exports = {
     main: './entry.js'
   },
 
+  devtool: "source-map",
+
   output: {
     filename: commonUtil.fixRoute('/bundle.js'),
     path: __dirname+'/_site',
@@ -28,8 +30,8 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel-loader' }
+      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' },
     ]
   },
 
