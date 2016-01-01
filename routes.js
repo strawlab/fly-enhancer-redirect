@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Link, History } from 'react-router'
+import { Router, Link } from 'react-router'
 import App from './components/App.jsx'
 import Index from './components/Index.jsx'
 import RedirectV1 from './components/RedirectV1.jsx'
@@ -19,8 +19,10 @@ const devRoutes = [
   {
     path: '/',
     component: React.createClass({
-      mixins: [ History ],
-      doRedirect() { this.history.pushState(null, fixRoute('/')); },
+      contextTypes: {
+        router: React.PropTypes.object.isRequired
+      },
+      doRedirect() { this.context.router.push(fixRoute('/')) },
       componentDidUpdate(prevProps,prevState) { this.doRedirect(); },
       componentDidMount() { this.doRedirect(); },
       render() {
