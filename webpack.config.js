@@ -20,6 +20,8 @@ module.exports = {
     main: './entry.js'
   },
 
+  devtool: "source-map",
+
   output: {
     filename: commonUtil.fixRoute('/bundle.js'),
     path: __dirname+'/_site',
