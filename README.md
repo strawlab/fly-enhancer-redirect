@@ -5,6 +5,8 @@ https://strawlab.org/fly-enhancer-redirect .
 
 ## prior to building or developing
 
+Development was tested with node 4.2.4 and npm 2.14.12.
+
 You must install the required node modules:
 
     npm install
