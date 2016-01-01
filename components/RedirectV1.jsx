@@ -103,7 +103,7 @@ const getComputedCache = function(props) {
   const currentQueryArg = currentQuery[this_data.query_name];
   const shouldRedirect = typeof currentQueryArg !== "undefined";
 
-  var nameFieldText;
+  let nameFieldText;
   switch (destination) {
   case "flylight":
     nameFieldText = props.currentJaneliaLine;
@@ -188,9 +188,11 @@ let RedirectV1 = React.createClass({
               placeholder={cs.this_data.placeholder}
             />
           </p>
-          <p>
-            <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
-          </p>
+          { cs.nameFieldText ?
+            <p>
+              <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
+            </p> : null
+          }
         </main>
       );
     }
