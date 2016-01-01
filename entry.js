@@ -22,7 +22,7 @@ if (typeof document !== 'undefined') {
     , document.getElementById('fly-enhancer-redirect'));
 }
 
-function renderFullPage(title, props) {
+function renderFullPage(title, html, props) {
   const jsonProps = JSON.stringify(props);
 
   return `<!DOCTYPE html>
@@ -32,7 +32,7 @@ function renderFullPage(title, props) {
   <title>${title}</title>
 </head>
 <body>
-  <div id="fly-enhancer-redirect"></div>
+  <div id="fly-enhancer-redirect">${html}</div>
   <script
     id='initial-props'
     type='application/json'
@@ -58,7 +58,15 @@ export default (locals, callback) => {
     }
 
     const store = configureStore()
+    const component = (
+      <Provider store={store}>
+        <div>
+          <RouterContext {...renderProps}/>
+        </div>
+      </Provider>
+    );
+    const html = renderToString(component);
     const initialProps = store.getState();
-    callback(null, renderFullPage(data.title, initialProps));
+    callback(null, renderFullPage(data.title, html, initialProps));
   });
 };
