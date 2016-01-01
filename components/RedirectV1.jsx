@@ -100,7 +100,7 @@ const getComputedCache = function(props) {
   const shouldRedirect = typeof currentQueryArg !== "undefined";
 
   var nameFieldText;
-  switch (props.params.destination) {
+  switch (destination) {
   case "flylight":
     nameFieldText = props.currentJaneliaLine;
     break;
@@ -109,7 +109,7 @@ const getComputedCache = function(props) {
     nameFieldText = props.currentViennaLine;
     break;
   default:
-    console.error("unknown destination",props.destination);
+    console.error("unknown destination",destination);
     break;
   }
 
