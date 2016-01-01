@@ -11,10 +11,6 @@ import routes from './routes'
 import data from './data'
 import {fixRoute} from './common/util'
 
-function safeStringify(obj) {
-  return JSON.stringify(obj).replace(/<\/script/g, '<\\/script').replace(/<!--/g, '<\\!--')
-}
-
 // Client render (optional):
 if (typeof document !== 'undefined') {
   var initialProps = JSON.parse(document.getElementById('initial-props').innerHTML)
@@ -24,6 +20,26 @@ if (typeof document !== 'undefined') {
         <Router history={browserHistory} routes={routes} />
       </Provider>
     , document.getElementById('fly-enhancer-redirect'));
+}
+
+function renderFullPage(title, props) {
+  const jsonProps = JSON.stringify(props);
+
+  return `<!DOCTYPE html>
+<html>
+<head>
+  <meta charSet="utf-8" />
+  <title>${title}</title>
+</head>
+<body>
+  <div id="fly-enhancer-redirect"></div>
+  <script
+    id='initial-props'
+    type='application/json'
+     >${jsonProps}</script>
+  <script src="${fixRoute('/bundle.js')}"></script>
+</body>
+</html>`
 }
 
 // Exported static site renderer:
@@ -43,23 +59,6 @@ export default (locals, callback) => {
 
     const store = configureStore()
     const initialProps = store.getState();
-    const jsonProps = safeStringify(initialProps);
-
-    let rootTemplate = `<!DOCTYPE html>
-<html>
-  <head>
-    <meta charSet="utf-8" />
-    <title>${data.title}</title>
-  </head>
-  <body>
-    <div id="fly-enhancer-redirect"></div>
-    <script
-      id='initial-props'
-      type='application/json'
-       >${jsonProps}</script>
-    <script src="${fixRoute('/bundle.js')}"></script>
-  </body>
-</html>`;
-      callback(null, rootTemplate);
+    callback(null, renderFullPage(data.title, initialProps));
   });
 };
