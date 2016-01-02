@@ -9,24 +9,21 @@ import configureStore from './redux/create'
 
 import routes from './routes'
 import data from './data'
-import {fixRoute} from './common/util'
+import { fixRoute } from './common/util'
 
 // Client render (optional):
 if (typeof document !== 'undefined') {
   var initialProps = JSON.parse(document.getElementById('initial-props').innerHTML)
-  let store = configureStore(initialProps);
+  let store = configureStore(initialProps)
   ReactDOM.render(
-      <Provider store={store}>
-        <Router
-            history={browserHistory}
-            routes={routes}
-        />
-      </Provider>
-    , document.getElementById('fly-enhancer-redirect'));
+    <Provider store={store}>
+      <Router history={browserHistory} routes={routes} />
+    </Provider>
+    , document.getElementById('fly-enhancer-redirect'))
 }
 
-function renderFullPage(title, html, props) {
-  const jsonProps = JSON.stringify(props);
+function renderFullPage (title, html, props) {
+  const jsonProps = JSON.stringify(props)
 
   return `<!DOCTYPE html>
 <html>
@@ -47,28 +44,28 @@ function renderFullPage(title, html, props) {
 
 // Exported static site renderer:
 export default (locals, callback) => {
-  const history = createMemoryHistory();
-  const location = history.createLocation(locals.path);
+  const history = createMemoryHistory()
+  const location = history.createLocation(locals.path)
 
-  match({ routes, location }, (error, redirectLocation, renderProps) => {
+  match({routes, location}, (error, redirectLocation, renderProps) => {
     if (error) {
-      throw new Error("error handling not implemented");
+      throw new Error('error handling not implemented')
     } else if (redirectLocation) {
-      throw new Error("redirection not implemented");
+      throw new Error('redirection not implemented')
     } else if (!renderProps) {
-      throw new Error("404 not implemented");
+      throw new Error('404 not implemented')
     }
 
     const store = configureStore()
     const component = (
-      <Provider store={store}>
-        <div>
-          <RouterContext {...renderProps}/>
-        </div>
-      </Provider>
-    );
-    const html = renderToString(component);
-    const initialProps = store.getState();
-    callback(null, renderFullPage(data.title, html, initialProps));
-  });
-};
+    <Provider store={store}>
+      <div>
+        <RouterContext {...renderProps}/>
+      </div>
+    </Provider>
+    )
+    const html = renderToString(component)
+    const initialProps = store.getState()
+    callback(null, renderFullPage(data.title, html, initialProps))
+  })
+}

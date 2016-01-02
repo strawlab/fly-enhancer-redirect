@@ -5,18 +5,18 @@
 export const SET = 'strawlab.org/fly-enhancer-redirect/currentViennaLine/SET'
 
 // reducer ---------------------------------------------------------------------
-const initialState = null;
-export default function reducer(state = initialState, action) {
+const initialState = null
+export default function reducer (state = initialState, action) {
   switch (action.type) {
     case SET:
-      return action.payload;
+      return action.payload
     default:
-      return state;
+      return state
   }
 }
 
 // action creators -------------------------------------------------------------
-export function setViennaLine(value) {
+export function setViennaLine (value) {
   return {
     type: SET,
     payload: value
