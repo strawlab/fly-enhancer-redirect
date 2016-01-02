@@ -9,7 +9,7 @@ const devValue = JSON.parse(process.env.BUILD_DEV || 'true');
 
 if (devValue) {
   if (commonUtil.fixRoute()!="/") {
-    console.warn("DEV MODE, BUILDING ROUTE AT /")
+    console.warn("DEV MODE, BUILDING ROUTE AT /") //eslint-disable-line no-console
     myRoutes.push('/');
   }
 }
@@ -31,13 +31,13 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' },
+      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' }
     ]
   },
 
   plugins: [
     new StaticSiteGeneratorPlugin('main', myRoutes, data),
-    new webpack.DefinePlugin({__DEV__: JSON.stringify(devValue)}),
+    new webpack.DefinePlugin({__DEV__: JSON.stringify(devValue)})
   ],
   bail: true,
   debug: true

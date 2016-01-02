@@ -17,7 +17,10 @@ if (typeof document !== 'undefined') {
   let store = configureStore(initialProps);
   ReactDOM.render(
       <Provider store={store}>
-        <Router history={browserHistory} routes={routes} />
+        <Router
+            history={browserHistory}
+            routes={routes}
+        />
       </Provider>
     , document.getElementById('fly-enhancer-redirect'));
 }
@@ -53,7 +56,6 @@ export default (locals, callback) => {
     } else if (redirectLocation) {
       throw new Error("redirection not implemented");
     } else if (!renderProps) {
-      console.error("locals when getting 404:",locals);
       throw new Error("404 not implemented");
     }
 
