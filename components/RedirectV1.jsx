@@ -91,7 +91,7 @@ let data = {
 // hmm, babel doesn't add string.endsWith(), so we use this.
 function endsWith(str, suffix) {
   return str.indexOf(suffix, str.length - suffix.length) !== -1;
-};
+}
 
 const getComputedCache = function(props) {
   const destination = props.params.destination;
@@ -113,8 +113,7 @@ const getComputedCache = function(props) {
     nameFieldText = props.currentViennaLine;
     break;
   default:
-    console.error("unknown destination",destination);
-    break;
+    throw new Error("unknown destination",destination);
   }
 
   let nextQuery = {};
@@ -135,11 +134,15 @@ const getComputedCache = function(props) {
 
 
 
-let RedirectV1 = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.object.isRequired
-  },
-  onNameFilterChange: function(evt) {
+class RedirectV1 extends React.Component {
+  constructor(props) {
+      super(props);
+      this.handleNameFilterChange = this.handleNameFilterChange.bind(this);
+      this.handleKeyDown = this.handleKeyDown.bind(this);
+  }
+  componentDidMount() { this.redirectIfNeeded(this.props); }
+  componentDidUpdate(pp,ps) { this.redirectIfNeeded(this.props); }
+  handleNameFilterChange(evt) {
     const destination = this.props.params.destination;
     switch (destination) {
     case "flylight":
@@ -150,11 +153,11 @@ let RedirectV1 = React.createClass({
       this.props.dispatch(setViennaLine(evt.target.value));
       break;
     default:
-      console.error("unknown destination",destination);
-      break;
+      throw new Error("unknown destination",destination);
     }
-  },
-  onKeyDown: function(evt) {
+    return;
+  }
+  handleKeyDown(evt) {
     if (evt.keyCode == 13) {
       const pathname = this.props.location.pathname;
 
@@ -162,35 +165,33 @@ let RedirectV1 = React.createClass({
       const query = nextQuery
       this.context.router.push({pathname, query})
     }
-  },
-  componentDidUpdate(pp,ps) { this.redirectIfNeeded(this.props); },
-  componentDidMount() { this.redirectIfNeeded(this.props); },
+  }
   redirectIfNeeded(props) {
     let cs = getComputedCache(props);
     if (cs.shouldRedirect) {
       cs.this_data.do_redirect(cs.argNoSlash);
     }
-  },
-  render: function () {
+  }
+  render() {
     let cs = getComputedCache(this.props);
     if ( !cs.shouldRedirect ) {
       return (
         <main>
-          <h2>Redirection service for {cs.this_data.title}</h2>
-          <noscript><h3>ERROR: javascript required</h3></noscript>
+          <h2>{'Redirection service for '}{cs.this_data.title}</h2>
+          <noscript><h3>{'ERROR: javascript required'}</h3></noscript>
           <p>
-            To generate a link, please enter a {cs.this_data.pretty_name}:
+            {'To generate a link, please enter a '}{cs.this_data.pretty_name}{':'}
             <input
-              type="text"
-              value={cs.nameFieldText}
-              onChange={this.onNameFilterChange}
-              onKeyDown={this.onKeyDown}
-              placeholder={cs.this_data.placeholder}
+                onChange={this.handleNameFilterChange}
+                onKeyDown={this.handleKeyDown}
+                placeholder={cs.this_data.placeholder}
+                type="text"
+                value={cs.nameFieldText}
             />
           </p>
-          { cs.nameFieldText ?
+          {cs.nameFieldText ?
             <p>
-              <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>link to {cs.this_data.query_name} {cs.nameFieldText}</Link>
+              <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>{'link to '}{cs.this_data.query_name} {cs.nameFieldText}</Link>
             </p> : null
           }
         </main>
@@ -199,25 +200,31 @@ let RedirectV1 = React.createClass({
 
     return (
       <main>
-        <h2>Redirection service for {cs.this_data.title}</h2>
-        <noscript><h3>ERROR: javascript required</h3></noscript>
-        You will be redirected for destination {cs.destination} with query {JSON.stringify(cs.currentQuery)}.
-        <p>Go to the <Link to={{pathname: fixRoute("/")}}>site index</Link>.</p>
+        <h2>{'Redirection service for '}{cs.this_data.title}</h2>
+        <noscript><h3>{'ERROR: javascript required'}</h3></noscript>
+        {'You will be redirected for destination '}{cs.destination}{' with query '}{JSON.stringify(cs.currentQuery)}{'.'}
+        <p>{'Go to the '}<Link to={{pathname: fixRoute("/")}}>{'site index'}</Link>{'.'}</p>
       </main>
     );
   }
-})
+}
+RedirectV1.contextTypes = { router: React.PropTypes.object.isRequired }
+RedirectV1.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+  location: React.PropTypes.object.isRequired,
+  params: React.PropTypes.object.isRequired
+}
 
 
 function mapStateToProps(state) {
   const {
     currentJaneliaLine,
-    currentViennaLine,
+    currentViennaLine
   } = state;
 
   return {
     currentJaneliaLine,
-    currentViennaLine,
+    currentViennaLine
   };
 }
 
