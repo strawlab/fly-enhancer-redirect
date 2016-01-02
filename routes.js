@@ -2,7 +2,7 @@ import App from './components/App.jsx'
 import Index from './components/Index.jsx'
 import RedirectV1 from './components/RedirectV1.jsx'
 import SubdirRedirect from './components/SubdirRedirect.jsx'
-import {fixRoute} from './common/util';
+import { fixRoute } from './common/util'
 
 const normalRoutes = {
   path: fixRoute('/'),
@@ -23,6 +23,6 @@ const devRoutes = [
 ]
 // -------------------------
 
-const finalRoutes = __DEV__ ? devRoutes : normalRoutes; //eslint-disable-line no-undef
+const finalRoutes = __DEV__ ? devRoutes : normalRoutes // eslint-disable-line no-undef
 
 export default finalRoutes

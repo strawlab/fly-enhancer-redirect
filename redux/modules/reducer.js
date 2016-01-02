@@ -4,7 +4,6 @@ import currentViennaLine from './currentViennaLine'
 
 const rootReducer = combineReducers({
   currentJaneliaLine,
-  currentViennaLine
-})
+  currentViennaLine})
 
 export default rootReducer
