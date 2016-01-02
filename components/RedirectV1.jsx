@@ -22,9 +22,10 @@ let data = {
     placeholder: "R27B03",
     query_name: "line",
     pretty_name: "driver line identifier",
-    do_redirect: function(line) {
-        var blank, blank_key, el, form, formData, hiddenField, i, j, key, len, len1, value;
+    do_redirect: function(lineOrig) {
+        let blank, blank_key, el, form, formData, hiddenField, i, j, key, len, len1, value;
 
+        const line = lineOrig.toUpperCase();
         formData = [];
         formData.push(["_search_toggle", "general"]);
         formData.push(["line", line]);
