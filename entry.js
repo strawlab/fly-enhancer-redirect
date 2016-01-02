@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { renderToString } from 'react-dom/server'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { Router, RouterContext, match, browserHistory } from 'react-router'
 import createMemoryHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
@@ -64,7 +64,7 @@ export default (locals, callback) => {
       </div>
     </Provider>
     )
-    const html = renderToString(component)
+    const html = renderToStaticMarkup(component)
     const initialProps = store.getState()
     callback(null, renderFullPage(data.title, html, initialProps))
   })
