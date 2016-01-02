@@ -6,7 +6,7 @@
   "description": "bounce incoming browsers to resources elsewhere",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "standard",
     "prod": "NODE_ENV=production BUILD_DEV=0 webpack -p --progress --colors",
     "dev-static": "webpack --progress --colors",
     "dev": "webpack-dev-server --progress --colors",
@@ -26,6 +26,7 @@
     "react-redux": "^4.0.6",
     "react-router": "^2.0.0-rc4",
     "redux": "^3.0.5",
+    "standard": "^5.4.1",
     "static-site-generator-webpack-plugin": "^2.0.1",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
