@@ -14,6 +14,14 @@ if (devValue) {
   }
 }
 
+const babelLoader = {
+  exclude: /node_modules/,
+  loader: 'babel',
+  query: {
+    presets: ['react', 'es2015']
+  }
+}
+
 module.exports = {
   entry: {
     main: './entry.js'
@@ -29,8 +37,8 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.jsx$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' },
-      { test: /\.js$/, exclude: /node_modules/, loader: 'babel?presets[]=react,presets[]=es2015' }
+      Object.assign({test: /\.js$/}, babelLoader),
+      Object.assign({test: /\.jsx$/}, babelLoader)
     ]
   },
 
