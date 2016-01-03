@@ -16,7 +16,7 @@ function get_vt_string (vt_number) {
   return pad(vtInt, 6)
 }
 
-let data = {
+export const data = {
   flylight: {
     title: 'Janelia FlyLight',
     placeholder: 'R27B03',
@@ -96,10 +96,13 @@ function endsWith (str, suffix) {
 
 const getComputedCache = function (props) {
   const destination = props.params.destination
-  const pathname = props.location.pathname
 
   const currentQuery = props.location.query || {}
   const this_data = data[destination]
+
+  if (typeof this_data === 'undefined') {
+    throw new Error('unknown destination')
+  }
 
   const currentQueryArg = currentQuery[this_data.query_name]
   const shouldRedirect = typeof currentQueryArg !== 'undefined'
@@ -130,7 +133,7 @@ const getComputedCache = function (props) {
   }
 
   return { destination, this_data, currentQueryArg, argNoSlash,
-  shouldRedirect, nextQuery, currentQuery, nameFieldText, pathname}
+  shouldRedirect, nextQuery, currentQuery, nameFieldText}
 }
 
 class RedirectV1 extends React.Component {
@@ -192,13 +195,13 @@ class RedirectV1 extends React.Component {
             value={cs.nameFieldText} />
         </p>
         {cs.nameFieldText
-          ? <p>
-             <Link to={{pathname: cs.pathname, query: cs.nextQuery}}>
+          ? <div><h3>Generated link</h3><p>
+             <Link to={{pathname: this.props.location.pathname, query: cs.nextQuery}}>
              {'link to '}
-             {cs.this_data.query_name}
+             {cs.this_data.query_name}{' '}
              {cs.nameFieldText}
              </Link>
-           </p> : null}
+           </p></div> : null}
       </main>
       )
     }
