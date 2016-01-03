@@ -32,6 +32,7 @@ function renderFullPage (title, html, props) {
 <head>
   <meta charSet="utf-8" />
   <title>${title}</title>
+  <link href="${fixRoute('/css/basscss-7.0.4.min.css')}" rel="stylesheet">
 </head>
 <body>
   <div id="fly-enhancer-redirect">${html}</div>

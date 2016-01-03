@@ -1,5 +1,6 @@
 var webpack = require('webpack')
 var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
 var data = require('./data')
 var commonUtil = require('./common/util')
 
@@ -40,6 +41,9 @@ module.exports = {
   },
 
   plugins: [
+    new CopyWebpackPlugin([
+        { from: 'css/basscss-7.0.4.min.css', to: commonUtil.fixRoute('/css/basscss-7.0.4.min.css') }
+    ]),
     new StaticSiteGeneratorPlugin('main', myRoutes, data),
     new webpack.DefinePlugin({__DEV__: JSON.stringify(devValue)})
   ],
