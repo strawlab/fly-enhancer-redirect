@@ -89,12 +89,7 @@ export const data = {
   }
 }
 
-// hmm, babel doesn't add string.endsWith(), so we use this.
-function endsWith (str, suffix) {
-  return str.indexOf(suffix, str.length - suffix.length) !== -1
-}
-
-const getComputedCache = function (props) {
+export const getComputedCache = function (props) {
   const destination = props.params.destination
 
   const currentQuery = props.location.query || {}
@@ -127,7 +122,7 @@ const getComputedCache = function (props) {
 
   if (typeof argNoSlash !== 'undefined') {
     // Remove trailing slash from argNoSlash if present.
-    if (argNoSlash.length > 1 & endsWith(argNoSlash, '/')) {
+    if (argNoSlash.length > 1 & argNoSlash.endsWith('/')) {
       argNoSlash = argNoSlash.substring(0, argNoSlash.length - 1)
     }
   }
