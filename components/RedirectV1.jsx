@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { setJaneliaLine } from '../redux/modules/currentJaneliaLine'
 import { setViennaLine } from '../redux/modules/currentViennaLine'
-import { fixRoute } from '../common/util'
+import { setRedirectState } from '../redux/modules/redirectState'
 
 function pad (num, size) {
   let s = num + ''
@@ -131,6 +131,29 @@ export const getComputedCache = function (props) {
   shouldRedirect, nextQuery, currentQuery, nameFieldText}
 }
 
+class DoRedirect extends React.Component {
+  componentDidMount () { this.handleRedirect(this.props) }
+  componentDidUpdate (pp, ps) { this.handleRedirect(this.props) }
+  handleRedirect (props) {
+    const this_data = data[this.props.dest]
+    this_data.do_redirect(this.props.value)
+  }
+  render () {
+    const this_data = data[this.props.dest]
+    return (
+    <main>
+      <h2>{'Redirection service for '}{this_data.title}</h2>
+      {'You will be redirected to '}{this_data.title}{' for '}
+      {this_data.pretty_name}{' '}{this.props.value}{'.'}
+    </main>
+    )
+  }
+}
+DoRedirect.propTypes = {
+  dest: React.PropTypes.string.isRequired,
+  value: React.PropTypes.string.isRequired
+}
+
 class RedirectV1 extends React.Component {
   constructor (props) {
     super(props)
@@ -166,53 +189,44 @@ class RedirectV1 extends React.Component {
   redirectIfNeeded (props) {
     let cs = getComputedCache(props)
     if (cs.shouldRedirect) {
-      cs.this_data.do_redirect(cs.argNoSlash)
+      const nextRedirectState = {dest: cs.destination, value: cs.argNoSlash}
+      // Test that we don't already have this redirect state to prevent infinite
+      // loop.
+      if (!this.props.redirectState ||
+        nextRedirectState.dest !== this.props.redirectState.dest ||
+        nextRedirectState.value !== this.props.redirectState.value) {
+        this.props.dispatch(setRedirectState(nextRedirectState))
+      }
     }
   }
   render () {
-    let cs = getComputedCache(this.props)
-    if (!cs.shouldRedirect) {
-      return (
-      <main>
-        <h2>{'Redirection service for '}{cs.this_data.title}</h2>
-        <p>
-          {'To generate a link, please enter a '}
-          {cs.this_data.pretty_name}
-          {':'}
-          <input
-            onChange={this.handleNameFilterChange}
-            onKeyDown={this.handleKeyDown}
-            placeholder={cs.this_data.placeholder}
-            type='text'
-            value={cs.nameFieldText} />
-        </p>
-        {cs.nameFieldText
-          ? <div><h3>Generated link</h3><p>
-             <Link to={{pathname: this.props.location.pathname, query: cs.nextQuery}}>
-             {'link to '}
-             {cs.this_data.query_name}{' '}
-             {cs.nameFieldText}
-             </Link>
-           </p></div> : null}
-      </main>
-      )
+    if (this.props.redirectState) {
+      return (<DoRedirect {...this.props.redirectState} />)
     }
 
+    let cs = getComputedCache(this.props)
     return (
     <main>
       <h2>{'Redirection service for '}{cs.this_data.title}</h2>
-      {'You will be redirected for destination '}
-      {cs.destination}
-      {' with query '}
-      {JSON.stringify(cs.currentQuery)}
-      {'.'}
       <p>
-        {'Go to the '}
-        <Link to={{pathname: fixRoute('/')}}>
-        {'site index'}
-        </Link>
-        {'.'}
+        {'To generate a link, please enter a '}
+        {cs.this_data.pretty_name}
+        {':'}
+        <input
+          onChange={this.handleNameFilterChange}
+          onKeyDown={this.handleKeyDown}
+          placeholder={cs.this_data.placeholder}
+          type='text'
+          value={cs.nameFieldText} />
       </p>
+      {cs.nameFieldText
+        ? <div><h3>Generated link</h3><p>
+           <Link to={{pathname: this.props.location.pathname, query: cs.nextQuery}}>
+           {'link to '}
+           {cs.this_data.query_name}{' '}
+           {cs.nameFieldText}
+           </Link>
+         </p></div> : null}
     </main>
     )
   }
@@ -221,16 +235,10 @@ RedirectV1.contextTypes = { router: React.PropTypes.object.isRequired }
 RedirectV1.propTypes = {
   dispatch: React.PropTypes.func.isRequired,
   location: React.PropTypes.object.isRequired,
-  params: React.PropTypes.object.isRequired
+  params: React.PropTypes.object.isRequired,
+  redirectState: React.PropTypes.object,
+  currentJaneliaLine: React.PropTypes.string,
+  currentViennaLine: React.PropTypes.string
 }
 
-function mapStateToProps (state) {
-  const {currentJaneliaLine, currentViennaLine} = state
-
-  return {
-    currentJaneliaLine,
-    currentViennaLine}
-}
-
-// Wrap the component to inject dispatch and state into it
-export default connect(mapStateToProps)(RedirectV1)
+export default connect(state => state)(RedirectV1)
