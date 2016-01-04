@@ -15,8 +15,7 @@ import { fixRoute } from './common/util'
 
 // Client render (optional):
 if (typeof document !== 'undefined') {
-  var initialProps = JSON.parse(document.getElementById('initial-props').innerHTML)
-  let store = configureStore(initialProps)
+  let store = configureStore()
   ReactDOM.render(
     <Provider store={store}>
       <Router history={browserHistory} routes={routes} />
@@ -24,9 +23,7 @@ if (typeof document !== 'undefined') {
     , document.getElementById('fly-enhancer-redirect'))
 }
 
-function renderFullPage (title, html, props) {
-  const jsonProps = JSON.stringify(props)
-
+function renderFullPage (title, html) {
   return `<!DOCTYPE html>
 <html>
 <head>
@@ -45,10 +42,6 @@ function renderFullPage (title, html, props) {
     </noscript>
     <div id="fly-enhancer-redirect">${html}</div>
   </div>
-  <script
-    id='initial-props'
-    type='application/json'
-     >${jsonProps}</script>
   <script src="${fixRoute('/bundle.js')}"></script>
 </body>
 </html>`
@@ -75,7 +68,6 @@ export default (locals, callback) => {
     </Provider>
     )
     const html = renderToString(component)
-    const initialProps = store.getState()
-    callback(null, renderFullPage(data.title, html, initialProps))
+    callback(null, renderFullPage(data.title, html))
   })
 }
