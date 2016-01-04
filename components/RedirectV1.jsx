@@ -175,9 +175,6 @@ class RedirectV1 extends React.Component {
       return (
       <main>
         <h2>{'Redirection service for '}{cs.this_data.title}</h2>
-        <noscript>
-          <h3>{'ERROR: javascript required'}</h3>
-        </noscript>
         <p>
           {'To generate a link, please enter a '}
           {cs.this_data.pretty_name}
@@ -204,9 +201,6 @@ class RedirectV1 extends React.Component {
     return (
     <main>
       <h2>{'Redirection service for '}{cs.this_data.title}</h2>
-      <noscript>
-        <h3>{'ERROR: javascript required'}</h3>
-      </noscript>
       {'You will be redirected for destination '}
       {cs.destination}
       {' with query '}

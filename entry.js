@@ -35,7 +35,16 @@ function renderFullPage (title, html, props) {
   <link href="${fixRoute('/css/basscss-7.0.4.min.css')}" rel="stylesheet">
 </head>
 <body>
-  <div id="fly-enhancer-redirect">${html}</div>
+  <div class="m2">
+    <noscript>
+      <div class="black bg-red border">
+        <h1>ERROR: javascript is required to use this site</h1>
+        <p>Javascript is required to use this site, but javascript is
+        not enabled in your browser.</p>
+      </div>
+    </noscript>
+    <div id="fly-enhancer-redirect">${html}</div>
+  </div>
   <script
     id='initial-props'
     type='application/json'
