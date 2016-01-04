@@ -24,6 +24,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "babelify": "^7.2.0",
+    "copy-webpack-plugin": "^0.3.3",
     "mocha": "^2.3.4",
     "mochify": "^2.14.3",
     "react": "^0.14.5",

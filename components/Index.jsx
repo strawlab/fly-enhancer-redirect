@@ -4,7 +4,7 @@ class Index extends React.Component {
   render () {
     return (
     <main>
-      <h1>{'fly enhancer redirect'}</h1>
+      <h1>{'Fly Enhancer Redirect'}</h1>
       {'This is a URL redirection service from the '}
       <a href='https://strawlab.org/'>
         {'Straw Lab'}
