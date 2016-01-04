@@ -2,7 +2,7 @@ import 'babel-polyfill'
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { renderToStaticMarkup } from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { Router, RouterContext, match, browserHistory } from 'react-router'
 import createMemoryHistory from 'react-router/lib/createMemoryHistory'
 import { Provider } from 'react-redux'
@@ -71,12 +71,10 @@ export default (locals, callback) => {
     const store = configureStore()
     const component = (
     <Provider store={store}>
-      <div>
-        <RouterContext {...renderProps}/>
-      </div>
+      <RouterContext {...renderProps}/>
     </Provider>
     )
-    const html = renderToStaticMarkup(component)
+    const html = renderToString(component)
     const initialProps = store.getState()
     callback(null, renderFullPage(data.title, html, initialProps))
   })
