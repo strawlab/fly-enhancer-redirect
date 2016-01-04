@@ -132,11 +132,11 @@ export const getComputedCache = function (props) {
 }
 
 class DoRedirect extends React.Component {
-  componentDidMount () { this.handleRedirect(this.props) }
-  componentDidUpdate (pp, ps) { this.handleRedirect(this.props) }
-  handleRedirect (props) {
-    const this_data = data[this.props.dest]
-    this_data.do_redirect(this.props.value)
+  componentDidMount () { this.redirectNow(this.props) }
+  componentDidUpdate (pp, ps) { this.redirectNow(this.props) }
+  redirectNow (props) {
+    const this_data = data[props.dest]
+    this_data.do_redirect(props.value)
   }
   render () {
     const this_data = data[this.props.dest]
