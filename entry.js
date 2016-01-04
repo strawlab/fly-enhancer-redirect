@@ -34,7 +34,7 @@ function renderFullPage (title, html) {
 <body>
   <div class="m2">
     <noscript>
-      <div class="black bg-red border">
+      <div class="black bg-red">
         <h1>ERROR: javascript is required to use this site</h1>
         <p>Javascript is required to use this site, but javascript is
         not enabled in your browser.</p>
