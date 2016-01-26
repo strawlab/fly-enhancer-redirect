@@ -42,7 +42,7 @@ module.exports = {
 
   plugins: [
     new CopyWebpackPlugin([
-        { from: 'css/basscss-7.0.4.min.css', to: commonUtil.fixRoute('/css/basscss-7.0.4.min.css') }
+        { from: 'css/basscss-7.0.4.min.css', to: '.' + commonUtil.fixRoute('/css/basscss-7.0.4.min.css') }
     ]),
     new StaticSiteGeneratorPlugin('main', myRoutes, data),
     new webpack.DefinePlugin({'process.env.NODE_ENV': devValue
