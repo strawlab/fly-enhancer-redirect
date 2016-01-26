@@ -45,7 +45,9 @@ module.exports = {
         { from: 'css/basscss-7.0.4.min.css', to: commonUtil.fixRoute('/css/basscss-7.0.4.min.css') }
     ]),
     new StaticSiteGeneratorPlugin('main', myRoutes, data),
-    new webpack.DefinePlugin({__DEV__: JSON.stringify(devValue)})
+    new webpack.DefinePlugin({'process.env.NODE_ENV': devValue
+      ? JSON.stringify('development')
+      : JSON.stringify('production')})
   ],
   bail: true,
   debug: true

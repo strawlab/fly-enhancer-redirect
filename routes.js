@@ -23,6 +23,6 @@ const devRoutes = [
 ]
 // -------------------------
 
-const finalRoutes = __DEV__ ? devRoutes : normalRoutes // eslint-disable-line no-undef
+const finalRoutes = process.env.NODE_ENV === 'development' ? devRoutes : normalRoutes
 
 export default finalRoutes

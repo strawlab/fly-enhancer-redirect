@@ -10,7 +10,7 @@
     "mocha": "mocha --compilers js:babel-core/register",
     "mochify": "mochify --transform babelify",
     "wd": "mochify --transform babelify --wd",
-    "prod": "NODE_ENV=production BUILD_DEV=0 webpack -p --progress --colors",
+    "prod": "BUILD_DEV=false webpack -p --progress --colors",
     "dev-static": "webpack --progress --colors",
     "dev": "webpack-dev-server --progress --colors",
     "start": "npm run dev"
