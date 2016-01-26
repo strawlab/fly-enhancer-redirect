@@ -1,4 +1,4 @@
-module.exports = {
+const data = {
   title: 'Fly Enhancer Redirect',
   routes: [
     // these routes will be built
@@ -9,3 +9,5 @@ module.exports = {
   ],
   subdir: '/fly-enhancer-redirect'
 }
+
+export default data

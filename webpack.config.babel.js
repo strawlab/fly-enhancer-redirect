@@ -1,10 +1,10 @@
-var webpack = require('webpack')
-var StaticSiteGeneratorPlugin = require('static-site-generator-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
-var data = require('./data')
-var commonUtil = require('./common/util')
+import webpack from 'webpack'
+import StaticSiteGeneratorPlugin from 'static-site-generator-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import data from './data'
+import commonUtil from './common/util'
 
-var myRoutes = data.routes.map(commonUtil.fixRoute)
+let myRoutes = data.routes.map(commonUtil.fixRoute)
 
 const devValue = JSON.parse(process.env.BUILD_DEV || 'true')
 

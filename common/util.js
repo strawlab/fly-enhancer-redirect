@@ -1,4 +1,4 @@
-var data = require('../data')
+import data from '../data'
 
 function removeTrailingSlash (routeName) {
   // Remove a trailing slash from routeName, but only if (routeName.length > 1).
