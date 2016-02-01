@@ -2836,9 +2836,9 @@
       }
     },
     "mocha": {
-      "version": "2.3.4",
-      "from": "mocha@latest",
-      "resolved": "https://registry.npmjs.org/mocha/-/mocha-2.3.4.tgz",
+      "version": "2.4.5",
+      "from": "mocha@2.4.5",
+      "resolved": "https://registry.npmjs.org/mocha/-/mocha-2.4.5.tgz",
       "dependencies": {
         "commander": {
           "version": "2.3.0",
@@ -2903,18 +2903,6 @@
               "version": "0.3.0",
               "from": "mkdirp@0.3.0",
               "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.3.0.tgz"
-            }
-          }
-        },
-        "mkdirp": {
-          "version": "0.5.0",
-          "from": "mkdirp@0.5.0",
-          "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-0.5.0.tgz",
-          "dependencies": {
-            "minimist": {
-              "version": "0.0.8",
-              "from": "minimist@0.0.8",
-              "resolved": "https://registry.npmjs.org/minimist/-/minimist-0.0.8.tgz"
             }
           }
         },
@@ -4341,9 +4329,9 @@
       "resolved": "https://registry.npmjs.org/range-parser/-/range-parser-1.0.2.tgz"
     },
     "react": {
-      "version": "0.14.6",
-      "from": "react@0.14.6",
-      "resolved": "https://registry.npmjs.org/react/-/react-0.14.6.tgz",
+      "version": "0.14.7",
+      "from": "react@0.14.7",
+      "resolved": "https://registry.npmjs.org/react/-/react-0.14.7.tgz",
       "dependencies": {
         "fbjs": {
           "version": "0.6.1",
@@ -4353,14 +4341,21 @@
       }
     },
     "react-dom": {
-      "version": "0.14.6",
-      "from": "react-dom@0.14.6",
-      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.6.tgz"
+      "version": "0.14.7",
+      "from": "react-dom@0.14.7",
+      "resolved": "https://registry.npmjs.org/react-dom/-/react-dom-0.14.7.tgz"
     },
     "react-redux": {
-      "version": "4.0.6",
-      "from": "https://registry.npmjs.org/react-redux/-/react-redux-4.0.6.tgz",
-      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.0.6.tgz"
+      "version": "4.2.0",
+      "from": "react-redux@4.2.0",
+      "resolved": "https://registry.npmjs.org/react-redux/-/react-redux-4.2.0.tgz",
+      "dependencies": {
+        "lodash": {
+          "version": "4.1.0",
+          "from": "lodash@>=4.1.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.1.0.tgz"
+        }
+      }
     },
     "react-router": {
       "version": "2.0.0-rc5",
@@ -4416,9 +4411,16 @@
       }
     },
     "redux": {
-      "version": "3.0.6",
-      "from": "redux@3.0.6",
-      "resolved": "https://registry.npmjs.org/redux/-/redux-3.0.6.tgz"
+      "version": "3.2.0",
+      "from": "redux@3.2.0",
+      "resolved": "https://registry.npmjs.org/redux/-/redux-3.2.0.tgz",
+      "dependencies": {
+        "lodash": {
+          "version": "4.1.0",
+          "from": "lodash@>=4.1.0 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.1.0.tgz"
+        }
+      }
     },
     "regex-cache": {
       "version": "0.4.2",
